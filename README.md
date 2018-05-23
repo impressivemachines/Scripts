@@ -22,7 +22,7 @@ The default starting octave is 6 in which case the code runs from A6 through A7.
 
 Below you can see an exampe output for a search between 1MHz and 1.01MHz, including the frequencies generated, which is followed by a factorization analysis of the divider chains:
 
-![Example Script Run](Images/top_octave_example_factors.png)
+![Example Script Run](Images/top_octave_analysis.png)
 
 ## Calibrate
 This script is for calibrating accelerometers and magnetometers. It works out the XYZ axis gain and offset based on a file containing a series of measurements. The measurement file is an ASCII file consisting of space separated X, Y, and Z axis readings, one per line. The only command line argument is the filename.
