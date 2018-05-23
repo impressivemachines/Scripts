@@ -96,6 +96,8 @@ print(SEPLINE)
 f_osc = best_f # here you can just assign f_osc to whatever you like to get the info about that source freq
 # f_osc = 10000000 # 10MHz clock example
 
+divide_set = np.empty(N, dtype=int)
+
 for index, f in enumerate(f_target):
     if index>2:
         octave = start_octave+1
@@ -103,10 +105,33 @@ for index, f in enumerate(f_target):
         octave = start_octave
     div = f_osc / f
     divint = int(round(div))
+    divide_set[index] = divint
     actual_f = f_osc/float(divint)
     delta_f = abs(actual_f - f)
     err_ratio = delta_f/f
     print(ESC_PINK + notes[index] + str(octave) + ESC_DEF,"\tdesired =",round(f,2), "Hz\t"+ESC_BLUE+"divide = ",divint, ESC_DEF+"\toutput =",round(actual_f,2), "Hz\terror =", round(err_ratio*100,6),'%')
 print(SEPLINE)
+print("Divider Factorization")
+print(SEPLINE)
 
+def print_factors(n):
+    print("factors = ("+ESC_RED,end=" ")
+    while (n%2) == 0:
+        print("2",end=" ")
+        n //= 2
+    sn = int(math.sqrt(float(n)))
+    for i in range(3,sn+1,2):
+        while (n%i)==0:
+            print(i,end=" ")
+            n=n//i
+    if n>2:
+        print(n,end=" ")
+    print(ESC_DEF+")")
+    
+for index, divint in enumerate(divide_set):
+    print(index,"\t"+ESC_BLUE+"divide =",divint,end=ESC_DEF+"\t")
+    print_factors(divint)
+print(SEPLINE)
+
+    
 exit(0)
